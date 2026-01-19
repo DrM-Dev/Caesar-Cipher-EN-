@@ -77,7 +77,7 @@ print('''
 
 
 print("******** WELCOME TO Caesar Cipher-SP ver  -   By: Dr.m DEV *********")
-print(" <!> IMPORTANT NOTE <!>\n this cipher is for Arabic-Language\n>>>>>>I have an English cipher on my github @DrM-Dev")
+print(" <!> IMPORTANT NOTE <!>\n this cipher is for Spanish-Language\n>>>>>>I have an English cipher on my github @DrM-Dev")
 #==========================================================================================================
 #______________________________________________________________
 symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9",]
@@ -134,3 +134,4 @@ while exit_code == False:
     elif off_or_on == "no":
         print("exciting code :)")
         exit_code = True
+
