@@ -2,6 +2,7 @@
 #================================Imports
 from turtle import Turtle,Screen
 import time
+from tkinter import filedialog
 
 screen = Screen()
 screen.setup(500,500)
@@ -60,8 +61,10 @@ print("**** WELCOME to Caesar-Cipher [EN]-ver ****")
 #______________________________________________________________
 #______________________________________________________________
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+#update (adding capitalized letters):
+alphabet = [letter.capitalize() for letter in alphabet]
 #______________________________________________________________
-symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9",]
+symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9","\n"]
 exit_code = False
 
 #________________
@@ -82,25 +85,56 @@ def caesar():
     #----------------
     while still_encod_decode:
         picked_direction = False
+        #----
+        picked_text_or_file = False
         input_message = False
+        #----
         decided_shift = False
         #------------
         direction = screen.textinput(title="ENCODE or DECODE",prompt="Type 'encode' to encrypt, type 'decode' to decrypt:").lower()
-        text = screen.textinput(title="Input Message",prompt="Type your message:\nyou can write anything in English[EN] and symbols as well").lower()
-        shift = int(screen.textinput(title="Key/Shift Number",prompt="Type the shift number:"))
+        #====================================
+        text_data_type = screen.textinput(title="ENCODE or DECODE",prompt="Do you want to enter a [1]text-file or [2]raw-text?\nanswer with 1 or 2").lower()
+        #====================================
+        if text_data_type == "1":
+            txt_file_path = filedialog.askopenfilename()
+            with open(txt_file_path) as targeted_txt:
+                imported_text = targeted_txt.read()
+                text = imported_text.lower()
+                print(text)
+
+        if text_data_type == "2":
+            text = screen.textinput(title="Input Message",
+                                    prompt="Type your message:\nyou can write anything in English[EN] and symbols as well").lower()
+
+        #====================================
+        try:
+            shift = int(screen.textinput(title="Key/Shift Number",prompt="Type the shift number:"))
+        except ValueError:
+            text = screen.textinput(title="🛑Shift-Key is EMPTY🛑",
+                                    prompt="you can't have an empty shift key or 0 shift number :(").lower()
+
+        #
+        #
+        #
         #
         if direction == 'encode' or direction == 'decode':
             picked_direction = True
+        #_____________
+        if text_data_type == "1" or text_data_type == "2":
+            picked_text_or_file = True
+        #_____________
         if text != "":
             input_message = True
+
         if shift != 0:
             decided_shift = True
-
-        #------------
-        if picked_direction and input_message and decided_shift:
+        #_____________
+        if picked_direction and picked_text_or_file and input_message and decided_shift:
             still_encod_decode = False
         else:
-            screen.textinput(title="⚠️Input Error", prompt="please..\n1-pick a direction to [encode or decode]\n2-write a message\n3-give a shift number more than 0\npress [OK] to try again").lower()
+            still_encod_decode = True
+            screen.textinput(title="🛑Input Error🛑", prompt="please..\n1-pick a direction to [encode or decode]\n2-open a [1]text-file or [2]write text\n3-give a shift number more than 0\n\nPress [OK] to try again").lower()
+
 
     #_____________________________________________________
     def decrypt(original_text = text, shift_amount = shift):
@@ -152,12 +186,12 @@ def caesar():
 #==================================USAGE:
 while not exit_code:
     off_or_on = screen.textinput(title="Welcome :)",
-                                 prompt="Do you wanna run the code to encode/decode a message?\n[yes]/[no]?").lower()
+                                 prompt="Do you wanna run the code to encode/decode a message?\nPress [OK] to proceed\nType \"END\" to exit the program").lower()
 
-    if off_or_on == "yes":
+    if off_or_on == "":
         caesar()
         off_or_on = ""
-    elif off_or_on == "no":
+    elif off_or_on == "end":
         print("exciting code :)")
         text_draw.write("Exciting code :)",
                         align="Center",
