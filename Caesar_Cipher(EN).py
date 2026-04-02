@@ -62,11 +62,12 @@ print("**** WELCOME to Caesar-Cipher [EN]-ver ****")
 #______________________________________________________________
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 #update (adding capitalized letters):
-alphabet = [letter.capitalize() for letter in alphabet]
+alphabet2 = [letter.capitalize() for letter in alphabet]
+alphabet.extend(alphabet2)
 #______________________________________________________________
-symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9","\n"]
+symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "?", ">", "<", ":", '"', "'", "[" , "]", "{", "}", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "`", "~", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,"\n"]
+#________________
 exit_code = False
-
 #________________
 text_draw = Turtle()
 text_draw.penup()
@@ -91,16 +92,18 @@ def caesar():
         #----
         decided_shift = False
         #------------
-        direction = screen.textinput(title="ENCODE or DECODE",prompt="Type 'encode' to encrypt, type 'decode' to decrypt:").lower()
+        direction = screen.textinput(title="ENCODE or DECODE",prompt="\nType 'ENCODE' to encrypt [make a secret message],\nType 'DECODE' to decrypt[open a secret message]").lower()
         #====================================
-        text_data_type = screen.textinput(title="ENCODE or DECODE",prompt="Do you want to enter a [1]text-file or [2]raw-text?\nanswer with 1 or 2").lower()
+        text_data_type = screen.textinput(title="Text-file or Raw text",prompt="Do you want to enter:\n[1]text-file or \n[2]raw-text?\n\nanswer with 1 or 2").lower()
         #====================================
         if text_data_type == "1":
             txt_file_path = filedialog.askopenfilename()
             with open(txt_file_path) as targeted_txt:
                 imported_text = targeted_txt.read()
-                text = imported_text.lower()
-                print(text)
+                #
+                text = imported_text
+                # debug:
+                # print(text)
 
         if text_data_type == "2":
             text = screen.textinput(title="Input Message",
@@ -141,38 +144,60 @@ def caesar():
         decrypted_text = ""
         for encrypted_letters in original_text:
             if encrypted_letters in symbols_n_numbers:
+                # old system:
                 decrypted_text += encrypted_letters
+                ## -------------------------------
             else:
+                # list extension trick (infinit loop)
+                ## -------------------------------
                 shifted_position = alphabet.index(encrypted_letters) - shift_amount
                 shifted_position %= len(alphabet)
-                # -------------------------------
                 decrypted_text += alphabet[shifted_position]
-        print(f"here's the decoded result:{decrypted_text}")
+
+    #############PRINTING RESULTS:
+        print(decrypted_text)
+        with open("Decrypted Text.txt", mode="w") as file:
+            file.write(decrypted_text)
         #
-        time.sleep(1)
+        # time.sleep(1)
         #
         text_draw.goto(0, 0)
-        text_draw.write(f"here's the decoded result:\n\n{decrypted_text}\n\nℹ️ check terminal to copy it :)", align="Center",
-                          font=("Arial", 15, "bold"))
+        text_draw.write(
+            f"ℹ️\nYour encrypted result is in terminal :)\nor\ngo to the program directory and get the text file as\n\n(Decrypted Text.txt)",
+            align="Center",
+            font=("Arial", 8, "bold"))
+        #
+        print("ℹ️\nALL DONE!\nthe program will be restarting, to encode/decode again...")
+        time.sleep(4)
+
 
 #________________________________________________________________________________________
     def encrypt( original_text = text, shift_amount = shift):
         encrypted_text = ""
         for letter in original_text:
             if letter in symbols_n_numbers:
+                #old system:
                 encrypted_text += letter
+                ## -------------------------------
             else:
                 shifted_position = alphabet.index(letter) + shift_amount
-                shifted_position %= len(alphabet) #THIS IS VITAL!!!!!! CHECK LAST NOTE BELOW [(<+>)]
+                shifted_position %= len(alphabet)
                 # -------------------------------
                 encrypted_text += alphabet[shifted_position]
+
+    #############PRINTING RESULTS:
         print(encrypted_text)
+        with open("Encrypted Text.txt",mode="w") as file:
+            file.write(encrypted_text)
         #
-        time.sleep(1)
+        # time.sleep(1)
         #
         text_draw.goto(0, 0)
-        text_draw.write(f"here's the encrypted result:\n\n{encrypted_text}\n\nℹ️ check terminal to copy it :)", align="Center",
-                          font=("Arial", 15, "bold"))
+        text_draw.write(f"ℹ️\nYour encrypted result is in terminal :)\nor\ngo to the program directory and get the text file as\n\n(Encrypted Text.txt)", align="Center",
+                          font=("Arial", 8, "bold"))
+        #
+        print("ℹ️\nALL DONE!\nthe program will be restarting, to encode/decode again...")
+        time.sleep(4)
 
 #________________________________________________________________________________________
     if direction == "encode":
