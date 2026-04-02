@@ -1,4 +1,4 @@
-#Caesar-Cipher / English-ver    -    By:  Dr.M-Dev
+#Caesar-Cipher-v3   -    By:  Dr.M-Dev
 #================================Imports
 from turtle import Turtle,Screen
 import time
@@ -55,7 +55,7 @@ def logo():
  ''')
 
 logo()
-print("**** WELCOME to Caesar-Cipher [EN]-ver    -by-    Dr.M-Dev ****")
+print("**** WELCOME to Caesar-Cipher-v3    -by-    Dr.M-Dev ****")
 #______________________________________________________________
 #______________________________________________________________
 #______________________________________________________________
@@ -67,6 +67,55 @@ alphabet2 = [letter.capitalize() for letter in alphabet]
 alphabet.extend(alphabet2)
 #______________________________________________________________
 symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "?", ">", "<", ":", '"', "'", "[" , "]", "{", "}", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "`", "~", ",", ".", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,"\n"]
+
+#______________________________________________________________update 3 [adding new languages] :D
+russian_alphabet = [
+    'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й',
+    'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф',
+    'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'
+]
+#
+spanish_alphabet= [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+]
+#
+french_alphabet = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+]
+#
+arabic_alphabet = [
+    "ا",  # Alif
+    "ب",  # Ba
+    "ت",  # Ta
+    "ث",  # Tha
+    "ج",  # Jim
+    "ح",  # Ha
+    "خ",  # Kha
+    "د",  # Dal
+    "ذ",  # Dhal
+    "ر",  # Ra
+    "ز",  # Zay
+    "س",  # Sin
+    "ش",  # Shin
+    "ص",  # Sad
+    "ض",  # Dad
+    "ط",  # Ta
+    "ظ",  # Za
+    "ع",  # Ayn
+    "غ",  # Ghayn
+    "ف",  # Fa
+    "ق",  # Qaf
+    "ك",  # Kaf
+    "ل",  # Lam
+    "م",  # Mim
+    "ن",  # Nun
+    "ه",  # Ha
+    "و",  # Waw
+    "ي"   # Ya
+]
+
 #________________
 exit_code = False
 #________________
@@ -213,8 +262,16 @@ def caesar():
         direction = ""
 
 
-#==================================USAGE:
+#==================================:
+picked_lang = False
+###################
 while not exit_code:
+    if not picked_lang:
+        language_selection = screen.textinput(title="PickLanguage",
+                                     prompt="You can pick other languages for Encoding/Decoding\nBut the program's language will remain English\n\n[this is a one-session setup]\n"
+                                            "v3 currently have:\n-English\n-Russian\nspanish").lower()
+
+    #
     off_or_on = screen.textinput(title="Welcome :)",
                                  prompt="Do you wanna run the code to encode/decode a message?\nPress [OK]/Enter to proceed\nType \"END\" to exit the program").lower()
 
