@@ -7,7 +7,8 @@ from tkinter import filedialog
 screen = Screen()
 screen.setup(500,500)
 screen.bgcolor("black")
-screen.title("Caesar Cipher.EN     Dr.M-Dev")
+screen.bgpic("BG.png")
+screen.title("Caesar Cipher.EN")
 
 #================================
 def logo():
@@ -54,7 +55,7 @@ def logo():
  ''')
 
 logo()
-print("**** WELCOME to Caesar-Cipher [EN]-ver ****")
+print("**** WELCOME to Caesar-Cipher [EN]-ver    -by-    Dr.M-Dev ****")
 #______________________________________________________________
 #______________________________________________________________
 #______________________________________________________________
@@ -65,7 +66,7 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 alphabet2 = [letter.capitalize() for letter in alphabet]
 alphabet.extend(alphabet2)
 #______________________________________________________________
-symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "?", ">", "<", ":", '"', "'", "[" , "]", "{", "}", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "`", "~", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,"\n"]
+symbols_n_numbers = [" ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "?", ">", "<", ":", '"', "'", "[" , "]", "{", "}", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "`", "~", ",", ".", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,"\n"]
 #________________
 exit_code = False
 #________________
@@ -92,9 +93,9 @@ def caesar():
         #----
         decided_shift = False
         #------------
-        direction = screen.textinput(title="ENCODE or DECODE",prompt="\nType 'ENCODE' to encrypt [make a secret message],\nType 'DECODE' to decrypt[open a secret message]").lower()
+        direction = screen.textinput(title="ENCODE or DECODE",prompt="Type 'ENCODE' to encrypt [make a secret message],\nType 'DECODE' to decrypt[open a secret message]").lower()
         #====================================
-        text_data_type = screen.textinput(title="Text-file or Raw text",prompt="Do you want to enter:\n[1]text-file or \n[2]raw-text?\n\nanswer with 1 or 2").lower()
+        text_data_type = screen.textinput(title="Text-file or Raw text",prompt="Do you want to enter:\n[1]text-file \nor \n[2]raw-text\n\nanswer with 1 or 2").lower()
         #====================================
         if text_data_type == "1":
             txt_file_path = filedialog.askopenfilename()
@@ -180,10 +181,14 @@ def caesar():
                 encrypted_text += letter
                 ## -------------------------------
             else:
-                shifted_position = alphabet.index(letter) + shift_amount
-                shifted_position %= len(alphabet)
-                # -------------------------------
-                encrypted_text += alphabet[shifted_position]
+                try:
+                    shifted_position = alphabet.index(letter) + shift_amount
+                    shifted_position %= len(alphabet)
+                    # -------------------------------
+                    encrypted_text += alphabet[shifted_position]
+                except ValueError:
+                    print("⚠️\na character was outside of the encryption-limit\n some characters may remain the same")
+                    print(f"⚠️THE CHARACTER >>>>>>>>>>>>>>>>>>> {letter}")
 
     #############PRINTING RESULTS:
         print(encrypted_text)
@@ -211,7 +216,7 @@ def caesar():
 #==================================USAGE:
 while not exit_code:
     off_or_on = screen.textinput(title="Welcome :)",
-                                 prompt="Do you wanna run the code to encode/decode a message?\nPress [OK] to proceed\nType \"END\" to exit the program").lower()
+                                 prompt="Do you wanna run the code to encode/decode a message?\nPress [OK]/Enter to proceed\nType \"END\" to exit the program").lower()
 
     if off_or_on == "":
         caesar()
