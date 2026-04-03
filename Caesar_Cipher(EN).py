@@ -60,7 +60,6 @@ print("**** WELCOME to Caesar-Cipher-v3    -by-    Dr.M-Dev ****")
 #______________________________________________________________
 #______________________________________________________________
 #______________________________________________________________
-#______________________________________________________________
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 #update (adding capitalized letters):
 alphabet2 = [letter.capitalize() for letter in alphabet]
@@ -84,38 +83,8 @@ french_alphabet = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ]
-#
-arabic_alphabet = [
-    "ا",  # Alif
-    "ب",  # Ba
-    "ت",  # Ta
-    "ث",  # Tha
-    "ج",  # Jim
-    "ح",  # Ha
-    "خ",  # Kha
-    "د",  # Dal
-    "ذ",  # Dhal
-    "ر",  # Ra
-    "ز",  # Zay
-    "س",  # Sin
-    "ش",  # Shin
-    "ص",  # Sad
-    "ض",  # Dad
-    "ط",  # Ta
-    "ظ",  # Za
-    "ع",  # Ayn
-    "غ",  # Ghayn
-    "ف",  # Fa
-    "ق",  # Qaf
-    "ك",  # Kaf
-    "ل",  # Lam
-    "م",  # Mim
-    "ن",  # Nun
-    "ه",  # Ha
-    "و",  # Waw
-    "ي"   # Ya
-]
-
+#______________________________________________________________
+session_just_started = True
 #________________
 exit_code = False
 #________________
@@ -156,8 +125,21 @@ def caesar():
                 # print(text)
 
         if text_data_type == "2":
-            text = screen.textinput(title="Input Message",
-                                    prompt="Type your message:\nyou can write anything in English[EN] and symbols as well").lower()
+            if language_selection == "english":
+                text = screen.textinput(title="Input Message",
+                                        prompt="Type your message:\nyou can write anything in English[EN] and symbols as well").lower()
+
+            elif language_selection == "russian":
+                text = screen.textinput(title="Input Message",
+                                        prompt="Type your message:\nyou can write anything in Russian[RU] and symbols as well").lower()
+
+            elif language_selection == "spanish":
+                text = screen.textinput(title="Input Message",
+                                        prompt="Type your message:\nyou can write anything in Spanish[SP] and symbols as well").lower()
+
+            elif language_selection == "french":
+                text = screen.textinput(title="Input Message",
+                                        prompt="Type your message:\nyou can write anything in French[FR] and symbols as well").lower()
 
         #====================================
         try:
@@ -213,10 +195,22 @@ def caesar():
         #
         text_draw.goto(0, 0)
         text_draw.write(
-            f"ℹ️\nYour encrypted result is in terminal :)\nor\ngo to the program directory and get the text file as\n\n(Decrypted Text.txt)",
+            f"     [ℹ️]\nYour decrypted result is in terminal :)",
             align="Center",
-            font=("Arial", 8, "bold"))
+            font=("Arial", 10, "bold"))
         #
+        text_draw.goto(0, -20)
+        text_draw.write(
+            f"or",
+            align="Center",
+            font=("Arial", 10, "bold"))
+        #
+        text_draw.goto(0, -50)
+        text_draw.write(
+            f"go to the program directory and get the text file as:\n((Decrypted Text.txt)",
+            align="Center",
+            font=("Arial", 10, "bold"))
+        ####
         print("ℹ️\nALL DONE!\nthe program will be restarting, to encode/decode again...")
         time.sleep(4)
 
@@ -244,12 +238,26 @@ def caesar():
         with open("Encrypted Text.txt",mode="w") as file:
             file.write(encrypted_text)
         #
-        # time.sleep(1)
-        #
-        text_draw.goto(0, 0)
-        text_draw.write(f"ℹ️\nYour encrypted result is in terminal :)\nor\ngo to the program directory and get the text file as\n\n(Encrypted Text.txt)", align="Center",
-                          font=("Arial", 8, "bold"))
-        #
+            # time.sleep(1)
+            #
+            text_draw.goto(0, 0)
+            text_draw.write(
+                f"     [ℹ️]\nYour encrypted result is in terminal :)",
+                align="Center",
+                font=("Arial", 10, "bold"))
+            #
+            text_draw.goto(0, -20)
+            text_draw.write(
+                f"or",
+                align="Center",
+                font=("Arial", 10, "bold"))
+            #
+            text_draw.goto(0, -50)
+            text_draw.write(
+                f"go to the program directory and get the text file as:\n((Encrypted Text.txt)",
+                align="Center",
+                font=("Arial", 10, "bold"))
+            ####
         print("ℹ️\nALL DONE!\nthe program will be restarting, to encode/decode again...")
         time.sleep(4)
 
@@ -270,62 +278,71 @@ while not exit_code:
         while not picked_lang:
             language_selection = screen.textinput(title="PickLanguage",
                                          prompt="You can pick other languages for Encoding/Decoding\nBut the program's language will remain English\n\n[this is a one-session setup]\n"
-                                                "v3 currently have:\n1-English\n2-Russian\n3-Spanish\n4-French\n5-Arabic").lower()
+                                                "v3 currently have:\n1-English\n2-Russian\n3-Spanish\n4-French").lower()
             ############################
             str(language_selection)
             ############################
             if language_selection == "" or language_selection == " ":
                 alphabet = alphabet
+                language_selection = "english"
+                #----#
                 print("\n\nNO SPECIFIC SELECTION WAS MADE, Lang. set to default:\nEncode/Decode-Lang. was changed to [EN] English")
-                language_selection = screen.textinput(title="Language Selection Set",
+                screen.textinput(title="Language Selection Set",
                                                       prompt="NO SPECIFIC SELECTION WAS MADE, Lang. set to default:\nEncode/Decode-Lang. was changed to [EN] English\n\nPress [OK]/Enter to proceed")
                 #
                 picked_lang = True
 
-            if language_selection == 1 or language_selection == "english":
+            if language_selection == "1" or language_selection == "english":
                 alphabet = alphabet
+                language_selection = "english"
+                #----#
                 print("\n\nEncode/Decode-Lang. was changed to [EN] English")
-                language_selection = screen.textinput(title="Language Selection Set",
+                screen.textinput(title="Language Selection Set",
                                                       prompt="Encode/Decode-Lang. was changed to [EN] English\n\nPress [OK]/Enter to proceed")
                 #
                 picked_lang = True
 
-            if language_selection == 2 or language_selection == "russian":
+            if language_selection == "2" or language_selection == "russian":
                 alphabet = russian_alphabet
+                language_selection = "russian"
+                #----#
                 print("\n\nEncode/Decode-Lang. was changed to [RU] Russian")
-                language_selection = screen.textinput(title="Language Selection Set",
+                screen.textinput(title="Language Selection Set",
                                                       prompt="Encode/Decode-Lang. was changed to [RU] Russian\n\nPress [OK]/Enter to proceed")
                 #
                 picked_lang = True
 
-            if language_selection == 3 or language_selection == "spanish":
+            if language_selection == "3" or language_selection == "spanish":
                 alphabet = spanish_alphabet
+                language_selection = "spanish"
+                #----#
                 print("\n\nEncode/Decode-Lang. was changed to [SP] Spanish")
-                language_selection = screen.textinput(title="Language Selection Set",
+                screen.textinput(title="Language Selection Set",
                                                       prompt="Encode/Decode-Lang. was changed to [SP] Spanish\n\nPress [OK]/Enter to proceed")
                 #
                 picked_lang = True
 
-            if language_selection == 4 or language_selection == "french":
+            if language_selection == "4" or language_selection == "french":
                 alphabet = french_alphabet
+                language_selection = "french"
+                #----#
                 print("\n\nEncode/Decode-Lang. was changed to [FR] French")
-                language_selection = screen.textinput(title="Language Selection Set",
+                screen.textinput(title="Language Selection Set",
                                                       prompt="Encode/Decode-Lang. was changed to [FR] French\n\nPress [OK]/Enter to proceed")
                 #
                 picked_lang = True
 
-            if language_selection == 5 or language_selection == "arabic":
-                alphabet = arabic_alphabet
-                print("\n\nEncode/Decode-Lang. was changed to [AR] Arabic")
-                language_selection = screen.textinput(title="Language Selection Set",
-                                                      prompt="Encode/Decode-Lang. was changed to [AR] Arabic\n\nPress [OK]/Enter to proceed")
-                picked_lang = True
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##
+    if session_just_started:
+        off_or_on = screen.textinput(title="Welcome :)",
+                                     prompt="Reminder:\ntype \"END\" to exit the program").lower()
+        session_just_started = False
+    else:
+        off_or_on = screen.textinput(title="Welcome Back Again",
+                                     prompt="Do you want to continue with another session?\npress [OK]\n\nTo exit\ntype \"END\"").lower()
 
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #
-    off_or_on = screen.textinput(title="Welcome :)",
-                                 prompt="Reminder:\ntype \"END\" to exit the program").lower()
-
+    #~~~~~~~~~~~~~~~~~~~~~~
     if off_or_on == "" or off_or_on != "": #Activated by pressing [OK], no need to type more
         caesar()
         off_or_on = ""
