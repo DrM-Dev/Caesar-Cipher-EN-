@@ -267,18 +267,70 @@ picked_lang = False
 ###################
 while not exit_code:
     if not picked_lang:
-        language_selection = screen.textinput(title="PickLanguage",
-                                     prompt="You can pick other languages for Encoding/Decoding\nBut the program's language will remain English\n\n[this is a one-session setup]\n"
-                                            "v3 currently have:\n-English\n-Russian\nspanish").lower()
+        while not picked_lang:
+            language_selection = screen.textinput(title="PickLanguage",
+                                         prompt="You can pick other languages for Encoding/Decoding\nBut the program's language will remain English\n\n[this is a one-session setup]\n"
+                                                "v3 currently have:\n1-English\n2-Russian\n3-Spanish\n4-French\n5-Arabic").lower()
+            ############################
+            str(language_selection)
+            ############################
+            if language_selection == "" or language_selection == " ":
+                alphabet = alphabet
+                print("\n\nNO SPECIFIC SELECTION WAS MADE, Lang. set to default:\nEncode/Decode-Lang. was changed to [EN] English")
+                language_selection = screen.textinput(title="Language Selection Set",
+                                                      prompt="NO SPECIFIC SELECTION WAS MADE, Lang. set to default:\nEncode/Decode-Lang. was changed to [EN] English\n\nPress [OK]/Enter to proceed")
+                #
+                picked_lang = True
 
+            if language_selection == 1 or language_selection == "english":
+                alphabet = alphabet
+                print("\n\nEncode/Decode-Lang. was changed to [EN] English")
+                language_selection = screen.textinput(title="Language Selection Set",
+                                                      prompt="Encode/Decode-Lang. was changed to [EN] English\n\nPress [OK]/Enter to proceed")
+                #
+                picked_lang = True
+
+            if language_selection == 2 or language_selection == "russian":
+                alphabet = russian_alphabet
+                print("\n\nEncode/Decode-Lang. was changed to [RU] Russian")
+                language_selection = screen.textinput(title="Language Selection Set",
+                                                      prompt="Encode/Decode-Lang. was changed to [RU] Russian\n\nPress [OK]/Enter to proceed")
+                #
+                picked_lang = True
+
+            if language_selection == 3 or language_selection == "spanish":
+                alphabet = spanish_alphabet
+                print("\n\nEncode/Decode-Lang. was changed to [SP] Spanish")
+                language_selection = screen.textinput(title="Language Selection Set",
+                                                      prompt="Encode/Decode-Lang. was changed to [SP] Spanish\n\nPress [OK]/Enter to proceed")
+                #
+                picked_lang = True
+
+            if language_selection == 4 or language_selection == "french":
+                alphabet = french_alphabet
+                print("\n\nEncode/Decode-Lang. was changed to [FR] French")
+                language_selection = screen.textinput(title="Language Selection Set",
+                                                      prompt="Encode/Decode-Lang. was changed to [FR] French\n\nPress [OK]/Enter to proceed")
+                #
+                picked_lang = True
+
+            if language_selection == 5 or language_selection == "arabic":
+                alphabet = arabic_alphabet
+                print("\n\nEncode/Decode-Lang. was changed to [AR] Arabic")
+                language_selection = screen.textinput(title="Language Selection Set",
+                                                      prompt="Encode/Decode-Lang. was changed to [AR] Arabic\n\nPress [OK]/Enter to proceed")
+                picked_lang = True
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #
     off_or_on = screen.textinput(title="Welcome :)",
-                                 prompt="Do you wanna run the code to encode/decode a message?\nPress [OK]/Enter to proceed\nType \"END\" to exit the program").lower()
+                                 prompt="Reminder:\ntype \"END\" to exit the program").lower()
 
-    if off_or_on == "":
+    if off_or_on == "" or off_or_on != "": #Activated by pressing [OK], no need to type more
         caesar()
         off_or_on = ""
-    elif off_or_on == "end":
+
+    elif off_or_on == "end" or off_or_on == "exit":
         print("exciting code :)")
         text_draw.write("Exciting code :)",
                         align="Center",
